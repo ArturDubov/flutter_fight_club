@@ -23,7 +23,7 @@ void main() {
         ...tester.widgetList(find.text("Enemy")),
       ].cast<Text>();
       final Iterable<Color?> colorsOfTextsWithGrey =
-          allTextsWithGrey.map((e) => e.style?.color).toSet().toList();
+      allTextsWithGrey.map((e) => e.style?.color).toSet().toList();
       expect(colorsOfTextsWithGrey.length, 1);
       expect(colorsOfTextsWithGrey.first, isNotNull);
 
@@ -36,7 +36,7 @@ void main() {
         ...tester.widgetList(find.text("GO")),
       ].cast<Text>();
       final List<Color?> colorsOfTextsWithWhite =
-          allTextsWithWhite.map((e) => e.style?.color).toSet().toList();
+      allTextsWithWhite.map((e) => e.style?.color).toSet().toList();
       expect(colorsOfTextsWithWhite.length, 1);
       expect(colorsOfTextsWithWhite.first, isNotNull);
 
@@ -79,158 +79,158 @@ void main() {
 
   group("l03h03", () {
     testWidgets('Under FightersInfo there are background with two colors',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
-      final List<Row> rowWidgets = tester
-          .widgetList<Row>(
+            (WidgetTester tester) async {
+          await tester.pumpWidget(MyApp());
+          final List<Row> rowWidgets = tester
+              .widgetList<Row>(
               find.descendant(of: find.byType(FightersInfo), matching: find.byType(Row)))
-          .toList();
-      final Row? rowWithTwoChildren = rowWidgets.firstWhereOrNull((e) => e.children.length == 2);
-      expect(rowWithTwoChildren, isNotNull, reason: "Cannot find Row with needed colors");
-      expect(rowWithTwoChildren!.crossAxisAlignment, CrossAxisAlignment.stretch);
-      expect(
-        rowWithTwoChildren.children[0],
-        isInstanceOf<Expanded>(),
-      );
-      expect(
-        (rowWithTwoChildren.children[0] as Expanded).child,
-        isInstanceOf<ColoredBox>(),
-      );
-      expect(
-        ((rowWithTwoChildren.children[0] as Expanded).child as ColoredBox).color,
-        Colors.white,
-      );
+              .toList();
+          final Row? rowWithTwoChildren = rowWidgets.firstWhereOrNull((e) => e.children.length == 2);
+          expect(rowWithTwoChildren, isNotNull, reason: "Cannot find Row with needed colors");
+          expect(rowWithTwoChildren!.crossAxisAlignment, CrossAxisAlignment.stretch);
+          expect(
+            rowWithTwoChildren.children[0],
+            isInstanceOf<Expanded>(),
+          );
+          expect(
+            (rowWithTwoChildren.children[0] as Expanded).child,
+            isInstanceOf<ColoredBox>(),
+          );
+          expect(
+            ((rowWithTwoChildren.children[0] as Expanded).child as ColoredBox).color,
+            Colors.white,
+          );
 
-      expect(
-        rowWithTwoChildren.children[1],
-        isInstanceOf<Expanded>(),
-      );
-      expect(
-        (rowWithTwoChildren.children[1] as Expanded).child,
-        isInstanceOf<ColoredBox>(),
-      );
-      expect(
-        ((rowWithTwoChildren.children[1] as Expanded).child as ColoredBox).color,
-        Color(0xFFC5D1EA),
-      );
-    });
+          expect(
+            rowWithTwoChildren.children[1],
+            isInstanceOf<Expanded>(),
+          );
+          expect(
+            (rowWithTwoChildren.children[1] as Expanded).child,
+            isInstanceOf<ColoredBox>(),
+          );
+          expect(
+            ((rowWithTwoChildren.children[1] as Expanded).child as ColoredBox).color,
+            Color(0xFFC5D1EA),
+          );
+        });
   });
 
   group('l03h04', () {
     testWidgets('Centered box is expanded, has proper color and has proper size',
-        (WidgetTester tester) async {
-      void _testSizedBox(SizedBox sizedBox) {
-        expect(sizedBox.width, double.infinity);
-      }
+            (WidgetTester tester) async {
+          void _testSizedBox(SizedBox sizedBox) {
+            expect(sizedBox.width, double.infinity);
+          }
 
-      void _testPadding(Padding padding) {
-        expect((padding.padding as EdgeInsets).left, 16);
-        expect((padding.padding as EdgeInsets).right, 16);
-      }
+          void _testPadding(Padding padding) {
+            expect((padding.padding as EdgeInsets).left, 16);
+            expect((padding.padding as EdgeInsets).right, 16);
+          }
 
-      void _testColoredBox(ColoredBox coloredBox) {
-        expect(coloredBox.color, const Color(0xFFC5D1EA));
-      }
+          void _testColoredBox(ColoredBox coloredBox) {
+            expect(coloredBox.color, const Color(0xFFC5D1EA));
+          }
 
-      await tester.pumpWidget(MyApp());
-      final SafeArea safeArea = tester.widget<SafeArea>(find.byType(SafeArea));
-      expect(safeArea.child, isInstanceOf<Column>());
+          await tester.pumpWidget(MyApp());
+          final SafeArea safeArea = tester.widget<SafeArea>(find.byType(SafeArea));
+          expect(safeArea.child, isInstanceOf<Column>());
 
-      final Column topLevelColumn = safeArea.child as Column;
-      final Widget? possiblyExpanded =
+          final Column topLevelColumn = safeArea.child as Column;
+          final Widget? possiblyExpanded =
           topLevelColumn.children.firstWhereOrNull((element) => element is Expanded);
-      expect(possiblyExpanded, isNotNull);
-      expect(possiblyExpanded, isInstanceOf<Expanded>());
-      final Expanded expanded = possiblyExpanded as Expanded;
+          expect(possiblyExpanded, isNotNull);
+          expect(possiblyExpanded, isInstanceOf<Expanded>());
+          final Expanded expanded = possiblyExpanded as Expanded;
 
-      if (expanded.child is SizedBox) {
-        final SizedBox sizedBox = expanded.child as SizedBox;
+          if (expanded.child is SizedBox) {
+            final SizedBox sizedBox = expanded.child as SizedBox;
 
-        _testSizedBox(sizedBox);
+            _testSizedBox(sizedBox);
 
-        expect(sizedBox.child, isInstanceOf<Padding>());
-        final Padding padding = sizedBox.child as Padding;
-        _testPadding(padding);
+            expect(sizedBox.child, isInstanceOf<Padding>());
+            final Padding padding = sizedBox.child as Padding;
+            _testPadding(padding);
 
-        expect(padding.child, isInstanceOf<ColoredBox>());
-        _testColoredBox(padding.child as ColoredBox);
-      } else {
-        expect(expanded.child, isInstanceOf<Padding>());
-        final Padding padding = expanded.child as Padding;
-        _testPadding(padding);
+            expect(padding.child, isInstanceOf<ColoredBox>());
+            _testColoredBox(padding.child as ColoredBox);
+          } else {
+            expect(expanded.child, isInstanceOf<Padding>());
+            final Padding padding = expanded.child as Padding;
+            _testPadding(padding);
 
-        if (padding.child is SizedBox) {
-          final SizedBox sizedBox = padding.child as SizedBox;
-          _testSizedBox(sizedBox);
+            if (padding.child is SizedBox) {
+              final SizedBox sizedBox = padding.child as SizedBox;
+              _testSizedBox(sizedBox);
 
-          expect(sizedBox.child, isInstanceOf<ColoredBox>());
-          _testColoredBox(sizedBox.child as ColoredBox);
-        } else {
-          expect(padding.child, isInstanceOf<ColoredBox>());
-          final ColoredBox coloredBox = padding.child as ColoredBox;
-          _testColoredBox(coloredBox);
+              expect(sizedBox.child, isInstanceOf<ColoredBox>());
+              _testColoredBox(sizedBox.child as ColoredBox);
+            } else {
+              expect(padding.child, isInstanceOf<ColoredBox>());
+              final ColoredBox coloredBox = padding.child as ColoredBox;
+              _testColoredBox(coloredBox);
 
-          expect(coloredBox.child, isInstanceOf<SizedBox>());
+              expect(coloredBox.child, isInstanceOf<SizedBox>());
 
-          _testSizedBox(coloredBox.child as SizedBox);
-        }
-      }
-    });
+              _testSizedBox(coloredBox.child as SizedBox);
+            }
+          }
+        });
   });
 
-  group('l03h05', () {
-    testWidgets('Correct avatars added to assets. Util class created. Avatars added to the scren',
-        (WidgetTester tester) async {
-      final String youAvatarPath = "assets/images/you-avatar.png";
-      final String enemyAvatarPath = "assets/images/enemy-avatar.png";
+   group('l03h05', () {
+     testWidgets('Correct avatars added to assets. Util class created. Avatars added to the scren',
+             (WidgetTester tester) async {
+           final String youAvatarPath = "assets/images/you-avatar.png";
+           final String enemyAvatarPath = "assets/images/enemy-avatar.png";
 
-      final yourData = await rootBundle.load(youAvatarPath);
-      final yourBuffer = yourData.buffer;
-      final yourBytes = yourBuffer.asUint8List(yourData.offsetInBytes, yourData.lengthInBytes);
-      final yourMd5checksum = md5.convert(yourBytes);
-      expect(yourMd5checksum.toString(), "b740ac516bd8fb9950654185ce9241c4");
+           final yourData = await rootBundle.load(youAvatarPath);
+           final yourBuffer = yourData.buffer;
+           final yourBytes = yourBuffer.asUint8List(yourData.offsetInBytes, yourData.lengthInBytes);
+           final yourMd5checksum = md5.convert(yourBytes);
+           expect(yourMd5checksum.toString(), "b740ac516bd8fb9950654185ce9241c4");
 
-      final enemysData = await rootBundle.load(enemyAvatarPath);
-      final enemysBuffer = enemysData.buffer;
-      final enemysBytes = enemysBuffer.asUint8List(enemysData.offsetInBytes, enemysData.lengthInBytes);
-      final enemysMd5checksum = md5.convert(enemysBytes);
-      expect(enemysMd5checksum.toString(), "98855f71fa4fd927e3789adebcddaf73");
+           final enemysData = await rootBundle.load(enemyAvatarPath);
+           final enemysBuffer = enemysData.buffer;
+           final enemysBytes = enemysBuffer.asUint8List(enemysData.offsetInBytes, enemysData.lengthInBytes);
+           final enemysMd5checksum = md5.convert(enemysBytes);
+           expect(enemysMd5checksum.toString(), "98855f71fa4fd927e3789adebcddaf73");
 
-      expect(FightClubImages.youAvatar, youAvatarPath);
-      expect(FightClubImages.enemyAvatar, enemyAvatarPath);
+           expect(FightClubImages.youAvatar, youAvatarPath);
+           expect(FightClubImages.enemyAvatar, enemyAvatarPath);
 
-      await tester.pumpWidget(MyApp());
-      final youImageFinder = find.descendant(
-        of: find.descendant(
-          of: find.byType(FightersInfo),
-          matching: find.ancestor(
-            of: find.text("You"),
-            matching: find.byType(Column),
-          ),
-        ),
-        matching: find.byType(Image),
-      );
-      expect(youImageFinder, findsOneWidget);
-      final Image youImage = tester.widget(youImageFinder);
-      expect(youImage.image, isInstanceOf<AssetImage>());
-      expect((youImage.image as AssetImage).assetName, youAvatarPath);
+           await tester.pumpWidget(MyApp());
+           final youImageFinder = find.descendant(
+             of: find.descendant(
+               of: find.byType(FightersInfo),
+               matching: find.ancestor(
+                 of: find.text("You"),
+                 matching: find.byType(Column),
+               ),
+             ),
+             matching: find.byType(Image),
+           );
+           expect(youImageFinder, findsOneWidget);
+           final Image youImage = tester.widget(youImageFinder);
+           expect(youImage.image, isInstanceOf<AssetImage>());
+           expect((youImage.image as AssetImage).assetName, youAvatarPath);
 
-      final enemyImageFinder = find.descendant(
-        of: find.descendant(
-          of: find.byType(FightersInfo),
-          matching: find.ancestor(
-            of: find.text("Enemy"),
-            matching: find.byType(Column),
-          ),
-        ),
-        matching: find.byType(Image),
-      );
-      expect(enemyImageFinder, findsOneWidget);
-      final Image enemyImage = tester.widget(enemyImageFinder);
-      expect(enemyImage.image, isInstanceOf<AssetImage>());
-      expect((enemyImage.image as AssetImage).assetName, enemyAvatarPath);
-    });
-  });
+           final enemyImageFinder = find.descendant(
+             of: find.descendant(
+               of: find.byType(FightersInfo),
+               matching: find.ancestor(
+                 of: find.text("Enemy"),
+                 matching: find.byType(Column),
+               ),
+             ),
+             matching: find.byType(Image),
+           );
+           expect(enemyImageFinder, findsOneWidget);
+           final Image enemyImage = tester.widget(enemyImageFinder);
+           expect(enemyImage.image, isInstanceOf<AssetImage>());
+           expect((enemyImage.image as AssetImage).assetName, enemyAvatarPath);
+         });
+   });
 }
 
 Matcher isOneOrAnother(dynamic one, dynamic another) => OneOrAnotherMatcher(one, another);
