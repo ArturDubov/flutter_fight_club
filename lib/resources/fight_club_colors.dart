@@ -10,5 +10,7 @@ class FightClubColors {
   static const blackButton = const Color.fromRGBO(0, 0, 0, 0.87);
   static const darkGreyText = const Color.fromRGBO(22, 22, 22, 1);
   static const whiteText = const Color.fromRGBO(255, 255, 255, 0.87);
+  static const darkPurple = const Color(0xFFC5D1EA);
+
 
 }
